@@ -1,5 +1,29 @@
 # HW 0: Intro to Javascript and WebGL
 
+## Project Description
+In this project, I implemented a Cube class to render a 3D cube and added a GUI that allows users to easily adjust the cube’s color. To create a more dynamic look, I integrated 3D Perlin Noise in the fragment shader, which produces a cloudy effect while preserving the user’s chosen base color. I also introduced time-based vertex transformations. Using sine and cosine functions, I displaced only the cube’s upper vertices to create wave-like motions, and applied a subtle cosine-based scaling animation. Together, these techniques make the object more interesting while still reflecting the user’s input.
+
+
+**Cube Renders:** <br>
+<p align="center">
+  <img src="./cubess1.png" height="300"/>
+  <img src="./cubess2.png" height="300"/>
+</p>
+
+**Isosphere Renders:**<br>
+<p align="center">
+  <img src="./screenshot1.png" height="300"/>
+  <img src="./screenshot2.png" height="300"/>
+</p>
+
+<p align="center">
+  <video controls src="./videoDemo.mp4" type="video/mp4" width="640" height="360">
+</video>
+</p>
+
+**Live Demo:** https://aliceliu.xyz/hw00-intro-base/
+
+
 <p align="center">
   <img width="360" height="360" src="https://user-images.githubusercontent.com/1758825/132532354-e3a45402-e484-499e-bfa7-2d73b9f2c946.png">
 </p>

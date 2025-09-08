@@ -23,6 +23,7 @@ in vec4 vs_Col;             // The array of vertex colors passed to the shader.
 out vec4 fs_Nor;            // The array of normals that has been transformed by u_ModelInvTr. This is implicitly passed to the fragment shader.
 out vec4 fs_LightVec;       // The direction in which our virtual light lies, relative to each vertex. This is implicitly passed to the fragment shader.
 out vec4 fs_Col;            // The color of each vertex. This is implicitly passed to the fragment shader.
+out vec4 fs_Pos;
 
 const vec4 lightPos = vec4(5, 5, 3, 1); //The position of our virtual light, which is used to compute the shading of
                                         //the geometry in the fragment shader.
@@ -42,15 +43,17 @@ void main()
 
     float influence = smoothstep(0.0, 0.5, modelposition.y); 
     float wave = sin(u_Time / 60.0 + modelposition.x * 5.0) * modelposition.z * 0.5;
-    float yOffset = abs(wave + sin(wave * 1.3) * 0.6)
-                    + cos(u_Time / 50.0 + modelposition.z * 3.0) * 0.4;
+    float offset = (abs(wave + sin(wave * 1.3) * 0.6)
+                    + cos(u_Time / 50.0 + modelposition.z * 3.0) * 0.4) * 0.8;
 
     if (modelposition.y > 0.0) {
-        modelposition.y += influence * yOffset;
+        modelposition.y += influence * offset;
     }
 
     float scale = cos(u_Time / 100.0) * 0.1 + 1.2;
     modelposition.xyz *= scale;
+
+    fs_Pos = vs_Pos;
 
     fs_LightVec = lightPos - modelposition;  // Compute the direction in which the light source lies
 

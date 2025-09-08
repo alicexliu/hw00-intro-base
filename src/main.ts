@@ -92,7 +92,7 @@ function main() {
     }
 
     renderer.render(camera, custom, [
-      icosphere,
+       icosphere,
       // square,
       // cube
     ], controls.color, time);
