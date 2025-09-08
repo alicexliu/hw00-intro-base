@@ -13,6 +13,7 @@ import ShaderProgram, {Shader} from './rendering/gl/ShaderProgram';
 // This will be referred to by dat.GUI's functions that add GUI elements.
 const controls = {
   tesselations: 5,
+  color: [255, 0, 0],
   'Load Scene': loadScene, // A function pointer, essentially
 };
 
@@ -20,15 +21,16 @@ let icosphere: Icosphere;
 let square: Square;
 let cube: Cube;
 let prevTesselations: number = 5;
+let time: number = 0;
 
 function loadScene() {
-  // icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
-  // icosphere.create();
+  icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, controls.tesselations);
+  icosphere.create();
   // square = new Square(vec3.fromValues(0, 0, 0));
   // square.create();
 
-  cube = new Cube(vec3.fromValues(0, 0, 0));
-  cube.create();
+  // cube = new Cube(vec3.fromValues(0, 0, 0));
+  // cube.create();
 }
 
 function main() {
@@ -43,6 +45,7 @@ function main() {
   // Add controls to the gui
   const gui = new DAT.GUI();
   gui.add(controls, 'tesselations', 0, 8).step(1);
+  gui.addColor(controls, 'color');
   gui.add(controls, 'Load Scene');
 
   // get canvas and webgl context
@@ -69,8 +72,14 @@ function main() {
     new Shader(gl.FRAGMENT_SHADER, require('./shaders/lambert-frag.glsl')),
   ]);
 
+  const custom = new ShaderProgram([
+    new Shader(gl.VERTEX_SHADER, require('./shaders/custom-vert.glsl')),
+    new Shader(gl.FRAGMENT_SHADER, require('./shaders/custom-frag.glsl')),
+  ]);
+
   // This function will be called every frame
   function tick() {
+    time++;
     camera.update();
     stats.begin();
     gl.viewport(0, 0, window.innerWidth, window.innerHeight);
@@ -81,11 +90,12 @@ function main() {
       icosphere = new Icosphere(vec3.fromValues(0, 0, 0), 1, prevTesselations);
       icosphere.create();
     }
-    renderer.render(camera, lambert, [
-      // icosphere,
+
+    renderer.render(camera, custom, [
+      icosphere,
       // square,
-      cube
-    ]);
+      // cube
+    ], controls.color, time);
     stats.end();
 
     // Tell the browser to call `tick` again whenever it renders a new frame
