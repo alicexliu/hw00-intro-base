@@ -17,9 +17,10 @@ In this project, I implemented a Cube class to render a 3D cube and added a GUI 
 </p>
 
 <p align="center">
-  <video controls src="./videoDemo.mp4" type="video/mp4" width="640" height="360">
-</video>
+  <video src="https://github.com/user-attachments/assets/6e2d7187-50d9-4541-94c6-d658d411ccfe" width="400" height="400">
+  </video>
 </p>
+
 
 **Live Demo:** https://aliceliu.xyz/hw00-intro-base/
 
